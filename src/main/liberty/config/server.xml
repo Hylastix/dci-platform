@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<server description="defaultServer">
+    <!--The
+    Liberty Maven Plugin has generated Liberty features necessary for your application in
+    configDropins/overrides/generated-features.xml-->
+    <featureManager>
+        <feature>webProfile-10.0</feature>
+        <feature>adminCenter-1.0</feature>
+        <feature>mpJwt-2.1</feature>
+    </featureManager>
+
+    <variable name="db.host" defaultValue="db" />
+    <variable name="db.port" defaultValue="5432" />
+    <variable name="db.name" defaultValue="dci" />
+    <variable name="db.user" defaultValue="dci" />
+    <variable name="db.password" />
+
+    <library id="jdbcLib">
+        <fileset dir="jdbc" includes="*.jar" />
+    </library>
+
+    <dataSource jndiName="jdbc/postgres" id="postgresDS">
+        <jdbcDriver libraryRef="jdbcLib" />
+        <properties.postgresql
+            serverName="${db.host}"
+            portNumber="${db.port}"
+            databaseName="${db.name}"
+            user="${db.user}"
+            password="${db.password}"
+        />
+    </dataSource>
+
+    <keyStore id="defaultKeyStore" password="">
+        <keyEntry id="defaultKey" keyPassword="" name="default" />
+    </keyStore>
+
+    <basicRegistry id="defaultBasicRegistry" realm="defaultRealm">
+        <user id="tuser" name="tuser" password="" />
+        <user id="runner" name="runner" password="" />
+        <user name="admin" password="" />
+
+        <group id="users" name="users">
+            <member id="tuser" name="tuser" />
+        </group>
+        <group id="services" name="services">
+            <member id="runner" name="runner" />
+        </group>
+    </basicRegistry>
+
+    <administrator-role>
+        <user>admin</user>
+    </administrator-role>
+
+    <authFilter id="jobEndpointFiler">
+        <requestUrl id="jobEndpointUrl" urlPattern="/jobs" matchType="contains" />
+    </authFilter>
+
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
+
+    <!-- This is for issuing -->
+    <jwtBuilder id="dciJwtBuilder" issuer="http://localhost" expiry="3d" signatureAlgorithm="RS256"
+        audiences="dci" jwkEnabled="false" />
+
+    <!-- This is for consuming with microprofile role annotations -->
+    <mpJwt id="dciMpJwt" mapToUserRegistry="true" issuer="http://localhost"
+        authFilerRef="jobEndpointFiler" />
+
+    <httpEndpoint host="*" httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" />
+    <webApplication contextRoot="/" location="dci-platform.war" />
+
+    <logging traceSpecification="eclipselink=all" />
+
+    <wsocOutbound>
+        <httpOptions
+            readTimeout="5m"
+            writeTimeout="5m"
+            persistTimeout="60m"
+        />
+        <tcpOptions
+            inactivityTimeout="5m"
+        />
+    </wsocOutbound>
+</server>

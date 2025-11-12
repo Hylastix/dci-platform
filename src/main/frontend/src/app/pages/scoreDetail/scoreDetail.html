@@ -1,0 +1,124 @@
+<!--
+File: scoreDetail.html
+Project: frontend
+Created Date: 01 Aug 2025
+Author: Clemens Albrecht
+-----
+Last Modified: 18 Sep 2025
+Modified By: Clemens Albrecht
+-----
+Copyright (c) 2025 Hylastix GmbH
+------------------------------------------------------------------
+-->
+
+<div class="container">
+  <h1>Detail: {{ score().projectName }}</h1>
+
+  <h2>Score</h2>
+
+  <table class="table table-striped-columns">
+    <tbody>
+      <tr>
+        <th scope="row">ID</th>
+        <td>{{ score().id }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Project Name</th>
+        <td>{{ score().projectName }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Project Version</th>
+        <td>{{ score().projectVersion }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Github URL</th>
+        <td>{{ score().githubUrl }}</td>
+      </tr>
+      <tr>
+        <th scope="row">PURL</th>
+        <td>{{ score().purl }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Score Value</th>
+        <td>{{ score().value }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Measurement</h2>
+
+  <table class="table table-striped-columns">
+    <tbody>
+      <tr>
+        <th scope="row">ID</th>
+        <td>{{ measurement().id }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Bug Density</th>
+        <td>{{ measurement().bugDensity }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Bus Factor</th>
+        <td>{{ measurement().busFactor }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Code Coverage</th>
+        <td>{{ measurement().codeCoverage }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Comment Density</th>
+        <td>{{ measurement().commentDensity }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Has License</th>
+        <td>{{ measurement().hasLicense }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Manages Dependencies</th>
+        <td>{{ measurement().managesDeps }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Popularity</th>
+        <td>{{ measurement().popularity }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Release Frequency</th>
+        <td>{{ measurement().releaseFrequency }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Security Issue Density</th>
+        <td>{{ measurement().secDensity }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Code Smell Density</th>
+        <td>{{ measurement().smellDensity }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Uses CI</th>
+        <td>{{ measurement().usesCI }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Vulnerability Density</th>
+        <td>{{ measurement().vulnDensity }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Visualization</h2>
+
+  @if (score().id !== -1 && measurement().id !== -1) {
+    <dci-chart
+      [measurement]="measurement"
+      [score]="score"
+      [trustFactors]="trustFactors"
+      [weights] = "weights"
+    />
+  }
+  <a
+    class="btn btn-danger"
+    role="button"
+    [routerLink]="'/home'"
+    (click)="scoreService.deleteScore(score().id)"
+    >Delete</a
+  >
+</div>

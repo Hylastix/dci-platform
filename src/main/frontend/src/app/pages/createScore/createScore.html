@@ -1,0 +1,78 @@
+<!--
+File: createScore.html
+Project: frontend
+Created Date: 01 Aug 2025
+Author: Clemens Albrecht
+-----
+Last Modified: 18 Sep 2025
+Modified By: Clemens Albrecht
+-----
+Copyright (c) 2025 Hylastix GmbH
+------------------------------------------------------------------
+-->
+
+<div
+  class="container-fluid vh-100 d-flex align-items-center justify-content-center"
+>
+  <div class="card" style="min-width: 33%">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #scoreForm="ngForm">
+        <div class="mb-3">
+          <label for="project-name-field" class="form-label"
+            >Project Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="project-name-field"
+            required
+            [(ngModel)]="scoreRequestData.projectName"
+            name="projectName"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="project-version-field" class="form-label"
+            >Project Version</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="project-version-field"
+            required
+            [(ngModel)]="scoreRequestData.projectVersion"
+            name="projectVersion"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="github-url-field" class="form-label">Github URL</label>
+          <input
+            type="text"
+            class="form-control"
+            id="github-url-field"
+            required
+            [(ngModel)]="scoreRequestData.githubUrl"
+            name="githubUrl"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="purl-field" class="form-label">PURL</label>
+          <input
+            type="text"
+            class="form-control"
+            id="purl-field"
+            required
+            [(ngModel)]="scoreRequestData.purl"
+            name="purl"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!scoreForm.form.valid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

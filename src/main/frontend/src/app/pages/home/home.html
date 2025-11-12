@@ -1,0 +1,28 @@
+<!--
+File: home.html
+Project: frontend
+Created Date: 01 Aug 2025
+Author: Clemens Albrecht
+-----
+Last Modified: 18 Sep 2025
+Modified By: Clemens Albrecht
+-----
+Copyright (c) 2025 Hylastix GmbH
+------------------------------------------------------------------
+-->
+
+<div class="container">
+  <h1>Scores</h1>
+
+  <div class="list-group">
+    @for (score of scores(); track score.id) {
+      <a
+        [routerLink]="['/score', score.id]"
+        class="list-group-item list-group-item-action d-flex"
+      >
+        <span>{{ score.projectName }}-{{ score.projectVersion }}</span>
+        <span class="ms-auto">Score: {{ score.value }}</span>
+      </a>
+    }
+  </div>
+</div>
