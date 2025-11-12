@@ -1,0 +1,52 @@
+<!--
+File: login.html
+Project: frontend
+Created Date: 01 Aug 2025
+Author: Clemens Albrecht
+-----
+Last Modified: 18 Sep 2025
+Modified By: Clemens Albrecht
+-----
+Copyright (c) 2025 Hylastix GmbH
+------------------------------------------------------------------
+-->
+
+<div
+  class="container-fluid vh-100 d-flex align-items-center justify-content-center"
+>
+  <div class="card" style="min-width: 33%">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="mb-3">
+          <label for="username-field" class="form-label">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username-field"
+            required
+            [(ngModel)]="loginData.username"
+            name="username"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password-field" class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password-field"
+            required
+            [(ngModel)]="loginData.password"
+            name="password"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!loginForm.form.valid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
