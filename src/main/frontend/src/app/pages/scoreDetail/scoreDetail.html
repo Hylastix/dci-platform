@@ -40,7 +40,7 @@ Copyright (c) 2025 Hylastix GmbH
       </tr>
       <tr>
         <th scope="row">Score Value</th>
-        <td>{{ score().value }}</td>
+        <td>{{ scoreGrade() }}</td>
       </tr>
     </tbody>
   </table>
@@ -107,18 +107,8 @@ Copyright (c) 2025 Hylastix GmbH
   <h2>Visualization</h2>
 
   @if (score().id !== -1 && measurement().id !== -1) {
-    <dci-chart
-      [measurement]="measurement"
-      [score]="score"
-      [trustFactors]="trustFactors"
-      [weights] = "weights"
-    />
+  <dci-chart [measurement]="measurement" [score]="score" [trustFactors]="trustFactors" [weights]="weights" />
   }
-  <a
-    class="btn btn-danger"
-    role="button"
-    [routerLink]="'/home'"
-    (click)="scoreService.deleteScore(score().id)"
-    >Delete</a
-  >
+  <a class="btn btn-danger" role="button" [routerLink]="'/home'"
+    (click)="scoreService.deleteScore(score().id)">Delete</a>
 </div>

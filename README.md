@@ -30,7 +30,7 @@ POSTGRES_PASSWORD=<password>
 ```
 
 Note: User management is currently not implemented. For development purposes, a basic registry with preconfigured
-users and roles is provided in the source code.
+users and roles is provided in the source code. A key store for OpenLiberty has to be provided.
 
 ## How to run
 

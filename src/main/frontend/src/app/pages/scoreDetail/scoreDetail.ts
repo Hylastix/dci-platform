@@ -34,6 +34,20 @@ export class ScoreDetailPage implements OnInit {
 
   score = signal<ScoreModel>(new ScoreModel());
   measurement = signal<MeasurementModel>(new MeasurementModel());
+  scoreGrade = computed(() => {
+    let value = this.score().value;
+    if (value > 0.8) {
+      return 'A';
+    } else if (value > 0.6) {
+      return 'B';
+    } else if (value > 0.4) {
+      return 'C';
+    } else if (value > 0.2) {
+      return 'D';
+    } else {
+      return 'E';
+    }
+  });
 
   trustFactors = computed(() => {
     let trustMap = new Map<string, number>();
